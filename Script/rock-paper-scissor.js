@@ -13,3 +13,10 @@ function getComputedChoice() {
     }
 
 }
+
+function getHumanChoice() {
+    let choice = prompt("Enter your choice (rocke, paper or scissor): ");
+    console.log(choice);
+}
+
+getHumanChoice();
