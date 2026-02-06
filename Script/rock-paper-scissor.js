@@ -1,4 +1,6 @@
 const btnsDiv = document.querySelector(".container");
+const scoreTxt = document.querySelector("#score");
+const roundTxt = document.querySelector("#moves");
 
 let humanScore = 0;
 let computerScore = 0;
@@ -16,7 +18,6 @@ function getComputedChoice() {
     } else {
         return "scissor";
     }
-
 }
 
 function getHumanChoice() {
@@ -29,6 +30,7 @@ function playRound(humanChoice, computerChoice) {
     computerChoice = computerChoice.toLowerCase();
     
     console.log(`Human Choice: ${humanChoice} - Computer ${computerChoice}`);
+    roundTxt.textContent = `Round => H ${humanChoice} - C ${computerChoice}`;
 
     if (humanChoice === computerChoice) {
         console.log("IT'S A DRAW!");
@@ -45,13 +47,29 @@ function playRound(humanChoice, computerChoice) {
         computerScore++;
         logRoundWinner("Computer");
     }
+
+    computeMatchWinner();
 }
 
 function logRoundWinner(winner){
-    console.log(`${winner} win this round!
-    SCORE
-    H: ${humanScore}
-    C: ${computerScore}`);
+    scoreTxt.textContent = `SCORE: H ${humanScore} - C ${computerScore}`
+}
+
+function computeMatchWinner(){
+    let disputedRounds = humanScore + computerScore;
+
+    if (disputedRounds < 3)
+        return;
+
+    if (humanScore >= 3)
+        alert("Human wins this match!\nEarth is safe!");
+
+    if (computerScore >= 3)
+        alert("Computer wins this match!\nA dark era begins today for human race!");
+
+    humanScore = 0;
+    computerScore = 0;
+    logRoundWinner();
 }
 
 btnsDiv.addEventListener("click", (event) => {
