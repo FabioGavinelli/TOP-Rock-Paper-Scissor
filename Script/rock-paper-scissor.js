@@ -1,3 +1,5 @@
+const btnsDiv = document.querySelector(".container");
+
 let humanScore = 0;
 let computerScore = 0;
 
@@ -22,46 +24,48 @@ function getHumanChoice() {
     return choice;
 }
 
+function playRound(humanChoice, computerChoice) {
+    humanChoice = humanChoice.toLowerCase();
+    computerChoice = computerChoice.toLowerCase();
+    
+    console.log(`Human Choice: ${humanChoice} - Computer ${computerChoice}`);
 
-function playGame() {
-    function playRound(humanChoice, computerChoice) {
-        humanChoice = humanChoice.toLowerCase();
-        computerChoice = computerChoice.toLowerCase();
-        
-        console.log(`Human Choice: ${humanChoice} - Computer ${computerChoice}`);
-
-        if (humanChoice === computerChoice) {
-            console.log("IT'S A DRAW!");
-        } else if (humanChoice === "scissor" && computerChoice === "paper") {
-            humanScore++;
-            logRoundWinner("Human");
-        } else if (humanChoice === "paper" && computerChoice === "rock") {
-            humanScore++;
-            logRoundWinner("Human");
-        } else if (humanChoice === "rock" && computerChoice === "scissor") {
-            humanScore++;
-            logRoundWinner("Human");
-        } else {
-            computerScore++;
-            logRoundWinner("Computer");
-        }
-    }
-
-    function logRoundWinner(winner){
-        console.log(`${winner} win this round!
-    SCORE
-    H: ${humanScore}
-    C: ${computerScore}`);
-    }
-
-    console.log("THE GAME BEGINS! GOOD LUCK TO EVERYONE");
-
-    for(let i = 0; i <= 5; i++){
-        let cc = getComputedChoice();
-        let hc = getHumanChoice();
-        playRound(hc, cc);
+    if (humanChoice === computerChoice) {
+        console.log("IT'S A DRAW!");
+    } else if (humanChoice === "scissor" && computerChoice === "paper") {
+        humanScore++;
+        logRoundWinner("Human");
+    } else if (humanChoice === "paper" && computerChoice === "rock") {
+        humanScore++;
+        logRoundWinner("Human");
+    } else if (humanChoice === "rock" && computerChoice === "scissor") {
+        humanScore++;
+        logRoundWinner("Human");
+    } else {
+        computerScore++;
+        logRoundWinner("Computer");
     }
 }
 
-playGame();
+function logRoundWinner(winner){
+    console.log(`${winner} win this round!
+    SCORE
+    H: ${humanScore}
+    C: ${computerScore}`);
+}
 
+btnsDiv.addEventListener("click", (event) => {
+    switch(event.target.id){
+        case "scissor":
+            playRound("scissor", getComputedChoice());
+            break;
+        case "rock":
+            playRound("rock", getComputedChoice());
+            break;
+        case "paper":
+            playRound("paper", getComputedChoice());
+            break;
+        default:
+            break;
+    }
+})
